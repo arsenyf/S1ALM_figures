@@ -16,9 +16,9 @@ yl=[50 100];
 xl=[t(1) 1];
 
 fill(t_sample_stim + [0 0 0.4 0.4], [0 100 100 0], [0.6 0.85 1], 'LineStyle', 'None');
-plot([t_go t_go], [yl(1) yl(2)], 'k--','LineWidth',0.5,'clipping','off');
-plot([t_chirp1 t_chirp1], [yl(1) yl(2)], 'k--','LineWidth',0.5,'clipping','off');
-plot([t_chirp2 t_chirp2], [yl(1) yl(2)], 'k--','LineWidth',0.5,'clipping','off');
+plot([t_go t_go], [yl(1) yl(2)], 'k-','LineWidth',0.5,'clipping','off');
+plot([t_chirp1 t_chirp1], [yl(1) yl(2)], 'k-','LineWidth',0.5,'clipping','off');
+plot([t_chirp2 t_chirp2], [yl(1) yl(2)], 'k-','LineWidth',0.5,'clipping','off');
 
 num=1;
 if ~isempty(svm_performance(num).all)
@@ -45,17 +45,19 @@ if legend_flag==1
     text(-5,30,'Time (s)','FontSize',7,'HorizontalAlignment','left');
     text(xl(1)-diff(xl)*0.4, yl(1)+diff(yl)*0.5,sprintf('Decoder perform. \n(%%)'), 'FontSize',7,'HorizontalAlignment','center','Rotation',90);
     set(gca,'YTick',[50, 100],'FontSize',6,'XTick',[-2:2:0]);
-    text(xl(1)-diff(xl)*0.8, yl(1)+diff(yl)*1.35, 'i', ...
+    text(xl(1)-diff(xl)*0.8, yl(1)+diff(yl)*1.35, 'k', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold');
 else
     set(gca,'YTick',[],'FontSize',6,'XTick',[-2:2:0]);
 end
 
 if strcmp(key.sensory_or_motor,'sensory')
-    text(xl(1)+diff(xl)*0.5, yl(1)+diff(yl)*1.18,'Sensory', 'FontSize',7,'HorizontalAlignment','center');
+    text(xl(1)+diff(xl)*0.5, yl(1)+diff(yl)*1.25,'Sensory', 'FontSize',7,'HorizontalAlignment','center');
 elseif strcmp(key.sensory_or_motor,'motor')
-    text(xl(1)+diff(xl)*0.5, yl(1)+diff(yl)*1.18,'Motor', 'FontSize',7,'HorizontalAlignment','center');
+    text(xl(1)+diff(xl)*0.5, yl(1)+diff(yl)*1.25,'Motor', 'FontSize',7,'HorizontalAlignment','center');
 else
-    text(xl(1)+diff(xl)*0.5, yl(1)+diff(yl)*1.18,'Sensory/Motor', 'FontSize',7,'HorizontalAlignment','center');
+    text(xl(1)+diff(xl)*0.5, yl(1)+diff(yl)*1.25,'Sensory/Motor', 'FontSize',7,'HorizontalAlignment','center');
 end
 box off;
+text(-1, yl(1)+diff(yl)*1, 'Delay', ...
+    'fontsize', 6,'HorizontalAlignment','center');

@@ -1,6 +1,11 @@
-function  figure_fn_plot_projection_2D (proj2D)
+function  figure_fn_plot_projection_2D (proj2D, plot_r_flag)
 
 for itype= 1:1:size([proj2D.p],1)
+    if plot_r_flag==0
+        if proj2D(1).trial_types{itype} =='r'
+            continue;
+        end
+    end
     hold on;
     stim_onset_idx(1) = proj2D(1).stim_onset_idx(itype,1);
     stim_onset_idx(2) = proj2D(1).stim_onset_idx(itype,end);

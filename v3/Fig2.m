@@ -3,8 +3,8 @@ close all;
 
 dir_root = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\'
 dir_embeded_graphics = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\Graphic_for_figures\'
-dir_save_figure = [dir_root 'Results\figures\v2\'];
-filename = 'Fig2_v2';
+dir_save_figure = [dir_root 'Results\figures\v3\'];
+filename = 'Fig2_v3';
 flag_plot_left_right_trials =1 % (0 both), (1 left), (2 right)
 
 legends{1}.colr = [0 0.4 0.5]; % Distractor naive mice
@@ -63,7 +63,7 @@ position_y2(4)=position_y2(3)-vertical_distance2;
 
 Param = struct2table(fetch (ANL.Parameters,'*'));
 
-
+%%{
 %% Behavior
 axes('position',[position_x1(1), position_y1(1), panel_width1, panel_height1]);
 
@@ -136,8 +136,8 @@ text(-0.4, 70, '0.4 s', ...
 axes('position',[position_x1(2) position_y1(1)  panel_width1 panel_height1]);
 hold on;
 sz=[-1 1];
-% plot([-3 -3],[sz],'-k','LineWidth',0.75);
-plot([-2.15 -2.15],[sz],'-k','LineWidth',0.75);
+% plot([-3 -3],[sz],'--k','LineWidth',0.75);
+plot([-2.15 -2.15],[sz],'--k','LineWidth',0.75);
 % plot([0 0],[sz],'--k','LineWidth',0.75);
 time=-5:0.1:5;
 x1=time*0 +0.03; x1(time>=-2.45 & time<-2.0)=0.85; 
@@ -173,7 +173,7 @@ hold on;
 sz=[-1 1];
 plot([-3 3],[0.5 0.5],'-','LineWidth',0.75,'Color',[0.5 0.5 0.5]);
 % plot([-3 -3],[sz],'--k','LineWidth',0.75);
-plot([-2.15 -2.15],[sz],'-k','LineWidth',0.75);
+plot([-2.15 -2.15],[sz],'--k','LineWidth',0.75);
 % plot([0 0],[sz],'--k','LineWidth',0.75);
 time=-5:0.1:5;
 x1=time*0 +0.03; x1(time>=-2.45)=[1:1:sum(time>=-2.45)]*0.04;
@@ -212,12 +212,12 @@ hold on;
 sz=[-1 1];
 plot([-3 3],[0.5 0.5],'-','LineWidth',0.75,'Color',[0.5 0.5 0.5]);
 % plot([-3 -3],[sz],'--k','LineWidth',0.75);
-plot([-2.15 -2.15],[sz],'-k','LineWidth',0.75);
+plot([-2.15 -2.15],[sz],'--k','LineWidth',0.75);
 % plot([0 0],[sz],'--k','LineWidth',0.75);
 time=-5:0.1:5;
 x1=time*0 +0.03; x1(time>=-2.45)=[1:1:sum(time>=-2.45)]*0.04;
-x2=time*0 ; x2(time>=-1.50 & time<-1.3)=0.07; 
-x3=time*0 -0.03; x3(time>=-0.70 & time<-0.5)=0.1; 
+x2=time*0 ; x2(time>=-1.60 & time<-1.2)=0.07; 
+x3=time*0 -0.03; x3(time>=-0.80 & time<-0.4)=0.07; 
 x4=time*0 ; x4(time>=-1.60)=[1:1:sum(time>=-1.60)]*0.06; %Early delay graded
 
 early_delay_colr=fetch1(ANL.TrialTypeGraphic &  'trial_type_name="l_-1.6Full"','trialtype_rgb');
@@ -227,7 +227,7 @@ text(-0.95, 25 ,sprintf('Late \nDelay'),'FontSize',6,'HorizontalAlignment','left
 plot(time,x1,'Color',[0 0 1],'LineWidth',1.5);
 plot(time,x2,'Color',early_delay_colr,'LineWidth',1.5);
 plot(time,x3,'Color',late_delay_colr,'LineWidth',1.5);
-% plot(time,x4,'--','Color',early_delay_colr,'LineWidth',0.75);
+plot(time,x4,'--','Color',early_delay_colr,'LineWidth',0.75);
 xl=[-3 0];
 yl=[-.06 1];
 xlim(xl);
@@ -264,7 +264,7 @@ axis tight;
 axis equal;
 
 %Recording locations in ALM
-axes('position', [position_x2(1)-0.11 position_y2(2)-0.05 0.06 0.06]); hold on ;
+axes('position', [position_x2(1)-0.11 position_y2(2) 0.06 0.06]); hold on ;
 xl = [0 121];
 yl = [0 115];
 fig1_a = imread([dir_embeded_graphics 'left_ALM.jpg']);
@@ -309,20 +309,10 @@ end
 
 k1=k;
 label_flag=1;
-plot_r_flag=0;
-[xl,yl] = figure_plot_vs1_stimulus(rel1, k1, label_flag, plot_r_flag);
-yl=[-10 20];
-ylim(yl);
+[xl,yl] = figure_plot_vs1_stimulus(rel1, k1, label_flag);
 title(sprintf('%s \n mini stimuli \n', legends{1}.title_label),'FontSize',7,'Color',legends{1}.colr);
 text(xl(1)-diff(xl)*0.55, yl(1)+diff(yl)*1.2, 'e', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold');
-if label_flag==1
-    text(xl(1)-diff(xl)*0.35, yl(1)+diff(yl)*0.5,[' \Delta Firing ' sprintf('rate \n(Spikes s^{-1})')], 'FontSize',7,'HorizontalAlignment','center','Rotation',90);
-%     xlabel ('Time (s)','Fontsize', 7);
-end
-text(-1.8,ceil(yl(2))*1.18,'Delay','FontSize',6);
-set(gca,'Ytick',[yl(1) yl(2)]);
-
 
 axes('position',[position_x2(2), position_y2(1), panel_width2, panel_height2]);
 % Full Stimuli
@@ -351,16 +341,14 @@ end
 % Plot
 k3=k;
 label_flag=0;
-plot_r_flag=1;
-[xl,yl] = figure_plot_vs1_stimulus(rel3, k3, label_flag, plot_r_flag);
+[xl,yl] = figure_plot_vs1_stimulus(rel3, k3, label_flag);
 title(sprintf('%s \n full stimuli \n', legends{2}.title_label),'FontSize',7,'Color',legends{2}.colr);
-text(-1.8,ceil(yl(2))*1.18,'Delay','FontSize',6);
+
 
 
 
 %% vS1 Quantification
 axes('position',[position_x2(3), position_y2(1), panel_width2, panel_height2]);
-plot_r_flag=0;
 
 % Mini Stimuli
 key=[]; k=[];
@@ -414,9 +402,8 @@ text(xl(1)-diff(xl)*0.55, yl(1)+diff(yl)*1.1, 'f', ...
 
 
 %% Inputs to ALM
-plot_r_flag=0;
 axes('position',[position_x2(1), position_y2(2), panel_width2, panel_height2]);
-flag_normalize_modes=1;
+
 key=[]; k=[];
 key.unit_quality = 'ok or good';
 key.cell_type = 'Pyr';
@@ -435,16 +422,15 @@ k.trialtype_flag_mini = 1;
 title1 = '';
 title2='';
 title3=[];
-rel_input_mini =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageBaseline * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
+rel_input_mini =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageNormalized * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
 xlabel_flag=0;
 ylabel_flag=1;
 y_lims = [-0.25,1];
 outcome='hit';
-[xl, yl] =figure_plotModes (rel_input_mini,  Param, xlabel_flag, title1, title2, title3, ylabel_flag,  mode_names, mode_names_titles, y_lims, outcome, flag_normalize_modes, plot_r_flag);
+[xl, yl] =figure_plotModes (rel_input_mini,  Param, xlabel_flag, title1, title2, title3, ylabel_flag,  mode_names, mode_names_titles, y_lims, outcome);
 text(xl(1)-diff(xl)*0.55, yl(1)+diff(yl)*1.1, 'g', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold');
 
-plot_r_flag=1;
 axes('position',[position_x2(2), position_y2(2), panel_width2, panel_height2]);
 %Distractor full
 mode_names = { 'Stimulus Orthog.'};
@@ -458,69 +444,61 @@ k.trialtype_flag_full = 1;
 title1 = '';
 title2='';
 title3=[];
-rel_input_full =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageBaseline * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
+rel_input_full =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageNormalized * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
 xlabel_flag=0;
 ylabel_flag=0;
 y_lims = [-0.25,1];
 outcome='hit';
-[xl, yl] =figure_plotModes (rel_input_full,  Param, xlabel_flag, title1, title2, title3, ylabel_flag,  mode_names, mode_names_titles, y_lims,outcome, flag_normalize_modes, plot_r_flag);
+[xl, yl] =figure_plotModes (rel_input_full,  Param, xlabel_flag, title1, title2, title3, ylabel_flag,  mode_names, mode_names_titles, y_lims,outcome);
 
 
 %% Stimulus quantification
 %-----------------------------------------------------------------------------
-plot_r_flag=0;
-flag_normalize_modes=1;
 axes('position',[position_x2(3), position_y2(2), panel_width2, panel_height2]);
 hold on;
+
 % Regular mini
 key.training_type = 'regular';
 k=[];
 k=key;
 k.session_flag_mini = 1;
-% k.trialtype_flag_left_stim_mini_nopresample = 1;
-k.trialtype_flag_left_stim_mini_nopresample_and_control_right=1;
-rel_input_mini_q =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageBaseline * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
+k.trialtype_flag_left_stim_mini_nopresample = 1;
+rel_input_mini_q =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageNormalized * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
 yyaxis left
 colr = [0 0.4 0.5];
-yl=[0,0.15];
+compute_stim_amp (rel_input_mini_q,  Param, colr);
+yl=[0,0.05];
 ylim(yl);
-% yl=[0,0.05];
-signif_display_offset =-0.1;
-compute_stim_amp (rel_input_mini_q,  Param, colr, flag_normalize_modes, plot_r_flag, yl, signif_display_offset);
 xl=[-2.9 0.5];
 xlim(xl);
-set(gca,'Xtick',[-2 0], 'Ytick',[yl(1) yl(2)], 'YColor',colr,'Fontsize', 6)
-text(xl(1)-diff(xl)*0.3, yl(1)+diff(yl)*0.5, sprintf('Mini stimuli \nnorm. (a.u.)'), 'FontSize',7,'HorizontalAlignment','center','Rotation',90,'Color',colr);
+set(gca,'Xtick',[-2 0], 'Ytick',yl, 'YColor',colr,'Fontsize', 6)
+text(xl(1)-diff(xl)*0.3, yl(1)+diff(yl)*0.5, sprintf('Mini stimuli \n(a.u.)'), 'FontSize',7,'HorizontalAlignment','center','Rotation',90,'Color',colr);
 
 
 % Distractor full
-plot_r_flag=1;
 key.training_type = 'distractor';
 k=[];
 k=key;
 k.session_flag_full = 1;
 k.trialtype_flag_left_stim_full_nopresample = 1;
-rel_input_full_q =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageBaseline * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime - ANL.ExcludeSession) ) & k ;
+rel_input_full_q =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageNormalized * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime - ANL.ExcludeSession) ) & k ;
 yyaxis right
 colr = [0 1 0];
-yl=[0,1.15];
+compute_stim_amp (rel_input_full_q,  Param, colr);
+yl=[0,0.4];
 ylim(yl);
-% yl=[0,0.05];
-signif_display_offset =+0.05;
-compute_stim_amp (rel_input_full_q,  Param, colr, flag_normalize_modes, plot_r_flag, yl, signif_display_offset);
-set(gca,'Xtick',[-2 0], 'Ytick',[yl(1) yl(2)], 'YColor',colr,'Fontsize', 6)
-text(xl(1)+diff(xl)*1.2, yl(1)+diff(yl)*0.5, sprintf('Full stimuli \nnorm. (a.u.)'), 'FontSize',7,'HorizontalAlignment','center','Rotation',90,'Color',colr);
+set(gca,'Xtick',[-2 0], 'Ytick',yl, 'YColor',colr,'Fontsize', 6)
+text(xl(1)+diff(xl)*1.2, yl(1)+diff(yl)*0.5, sprintf('Full stimuli \n(a.u.)'), 'FontSize',7,'HorizontalAlignment','center','Rotation',90,'Color',colr);
 % title(sprintf('Inputs to ALM during \n vS1 stimulation'),'Fontsize', 7);
 text(xl(1)-diff(xl)*0.55, yl(1)+diff(yl)*1.1, 'h', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold');
 
 
-
+%}
 
 %% Choice mode
-plot_r_flag=1;
-flag_normalize_modes=1;
 axes('position',[position_x2(1), position_y2(3), panel_width2, panel_height2]);
+
 key=[]; k=[];
 key.unit_quality = 'ok or good';
 key.cell_type = 'Pyr';
@@ -539,18 +517,17 @@ k.trialtype_flag_mini = 1;
 title1 = '';
 title2='';
 title3=[];
-rel_choice_mini =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageBaseline* EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
+rel_choice_mini =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageNormalized3* EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
 ylabel_flag=1;
 xlabel_flag=1;
-y_lims = [-0.25,1];
-[xl, yl] =figure_plotModes (rel_choice_mini,  Param, xlabel_flag, title1, title2, title3, ylabel_flag,  mode_names, mode_names_titles, y_lims, outcome, flag_normalize_modes, plot_r_flag);
+y_lims = [-0.25,30];
+[xl, yl] =figure_plotModes (rel_choice_mini,  Param, xlabel_flag, title1, title2, title3, ylabel_flag,  mode_names, mode_names_titles, y_lims, outcome);
 text(xl(1)-diff(xl)*0.55, yl(1)+diff(yl)*1.1, 'i', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold');
 
 
 axes('position',[position_x2(2), position_y2(3), panel_width2, panel_height2]);
 %Distractor full
-plot_r_flag=1;
 mode_names = { 'LateDelay'};
 mode_names_titles = { 'Choice'};
 k=[];
@@ -561,16 +538,15 @@ k.trialtype_flag_full = 1;
 title1 = '';
 title2='';
 title3=[];
-rel_choice_full =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageBaseline * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
+rel_choice_full =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageNormalized3 * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
 xlabel_flag=1;
 ylabel_flag=0;
-y_lims = [-0.25,1];
+y_lims = [-0.25,30];
 outcome='hit';
-[xl, yl] =figure_plotModes (rel_choice_full,  Param, xlabel_flag, title1, title2, title3, ylabel_flag,  mode_names, mode_names_titles, y_lims,outcome, flag_normalize_modes, plot_r_flag);
-%}
+[xl, yl] =figure_plotModes (rel_choice_full,  Param, xlabel_flag, title1, title2, title3, ylabel_flag,  mode_names, mode_names_titles, y_lims,outcome);
+
 
 %% Stim kinetics
-flag_normalize_modes=1;
 key=[]; k=[];
 key.unit_quality = 'ok or good';
 key.cell_type = 'Pyr';
@@ -579,17 +555,15 @@ key.brain_area = 'ALM';
 % key.hemisphere = 'left';
 
 % Regular mini
-axes('position',[position_x2(3)+0.015, position_y2(3)-0.005, panel_width2, panel_height2*0.9]);
+axes('position',[position_x2(3)+0.015, position_y2(3)-0.01, panel_width2, panel_height2*0.9]);
 key.training_type = 'regular';
 k=key;
 k.session_flag_mini = 1;
-% % k.trialtype_flag_left_stim_mini_and_control_right = 1;
-% k.trialtype_flag_left_stim_mini_nopresample = 1;
-k.trialtype_flag_left_stim_mini_nopresample_and_control_right = 1;
-
-rel_stim_kinetics_mini =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageBaseline * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
+% k.trialtype_flag_left_stim_mini_and_control_right = 1;
+k.trialtype_flag_left_stim_mini_nopresample = 1;
+rel_stim_kinetics_mini =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageNormalized3 * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime) - ANL.ExcludeSession) & k ;
 colr1 = legends{1}.colr;
-compute_stim_kinetics_modes (rel_stim_kinetics_mini,  Param, colr1, flag_normalize_modes);
+compute_stim_kinetics_modes (rel_stim_kinetics_mini,  Param, colr1);
 
 
 % Distractor full
@@ -598,17 +572,16 @@ k=[];
 k=key;
 k.session_flag_full = 1;
 % k.trialtype_flag_left_stim_full = 1;
-% key.trialtype_flag_left_stim_full_nopresample=1;
-key.trialtype_flag_left_and_control_right_nopresample=1;
-rel_stim_kinetics_full =((EXP.Session * EXP.SessionID *ANL.ProjTrialAdaptiveAverageBaseline * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime - ANL.ExcludeSession) ) & k ;
+key.trialtype_flag_left_stim_full_nopresample=1;
+rel_stim_kinetics_full =((EXP.Session * EXP.SessionID * ANL.ProjTrialAdaptiveAverageNormalized3  * EXP.SessionTraining  * ANL.TrialTypeID * ANL.TrialTypeGraphic * ANL.TrialTypeInstruction *  ANL.IncludeSession * ANL.SessionGrouping * ANL.TrialTypeStimTime - ANL.ExcludeSession) ) & k ;
 colr2 = legends{2}.colr;
-compute_stim_kinetics_modes (rel_stim_kinetics_full,  Param, colr2, flag_normalize_modes);
+compute_stim_kinetics_modes (rel_stim_kinetics_full,  Param, colr2);
 xl=[-0.25 1.25];
 xlim(xl);
-yl = [-0.03 0.15];
+yl = [-0.1 5];
 ylim(yl);
-set(gca,'FontSize',6,'Ytick',[0 yl(2)]);
-text(xl(1)+diff(xl)*-0.7, yl(1)+diff(yl)*1.35, 'j', ...
+set(gca,'FontSize',6,'Ytick',[yl(1) 0 yl(2)]);
+text(xl(1)+diff(xl)*-0.7, yl(1)+diff(yl)*1.25, 'j', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold');
 text ((xl(1)+diff(xl)*0.5), (yl(1) + diff(yl)*-0.35), sprintf('Time (s)'),'Fontsize', 7,'HorizontalAlignment','center');
 text ((xl(1)-diff(xl)*0.45), (yl(1) + diff(yl)*0.5), sprintf('Impact on\nChoice mode \n     (a.u.)'),'Fontsize', 7,'Rotation',90,'VerticalAlignment','middle','HorizontalAlignment','center');

@@ -1,4 +1,4 @@
-function  figure_plot_vs1_stimulus(rel, k, label_flag)
+function  [xl,yl]=figure_plot_vs1_stimulus(rel, k, label_flag,plot_r_flag)
 
 % fetch Param
 Param = struct2table(fetch (ANL.Parameters,'*'));
@@ -15,6 +15,11 @@ sz = [-200 200];
 ydat = [sz(1) sz(2) sz(2) sz(1)];
 for itype = 1:1:size(trial_types)
     kk.trial_type_name=trial_types{itype};
+    if plot_r_flag==0
+        if kk.trial_type_name =='r'
+            continue;
+        end
+    end
     stim_duration = fetch1(ANL.TrialTypeStimTime & kk, 'stim_duration');
     stim_onset = fetch1(ANL.TrialTypeStimTime & kk, 'stim_onset');
     for istim=1:1:numel(stim_onset)
@@ -22,10 +27,10 @@ for itype = 1:1:size(trial_types)
         fill([stim_onset(istim) + xdat], ydat, [0.6 0.85 1], 'LineStyle', 'None');
     end
 end
-plot([t_go t_go], sz, 'k--','LineWidth',0.75);
+plot([t_go t_go], sz, 'k-','LineWidth',0.75);
 plot([-5 5], [0 0], 'k-','LineWidth',0.75);
-plot([t_chirp1 t_chirp1], sz, 'k--','LineWidth',0.75);
-plot([t_chirp2 t_chirp2], sz, 'k--','LineWidth',0.75);
+plot([t_chirp1 t_chirp1], sz, 'k-','LineWidth',0.75);
+plot([t_chirp2 t_chirp2], sz, 'k-','LineWidth',0.75);
 
 
 yl=0;
@@ -35,6 +40,11 @@ for itype = 1:1:size(trial_types)
     kk.trial_type_name=trial_types{itype};
     if kk.trial_type_name =='l'
         continue;
+    end
+    if plot_r_flag==0
+        if kk.trial_type_name =='r'
+            continue;
+        end
     end
     for i_s = 1:1:numel(session_uid)
         kk.trial_type_name=trial_types{itype};
@@ -47,17 +57,12 @@ for itype = 1:1:size(trial_types)
         STIM_sess(i_s,:)=nanmean((PSTH_Stim-PSTH_Baseline),1);
     end
     STIM=nanmean(STIM_sess,1);
-    plot(time,STIM,'Color',trialtype_rgb, 'LineWidth', 1.25);
+    plot(time,STIM,'Color',trialtype_rgb, 'LineWidth',0.75);
     yl = [nanmin([STIM,yl]) nanmax([STIM,yl])];
 end
 
 
-xl=[-4 1];
+xl=[-2.9 1];
 xlim(xl);
 ylim([floor(yl(1)),ceil(yl(2))]);
-set(gca,'FontSize',6);
-if label_flag==1
-    text(xl(1)-diff(xl)*0.35, yl(1)+diff(yl)*0.6,' \Delta Firing rate (Spikes s^{-1})', 'FontSize',7,'HorizontalAlignment','center','Rotation',90);
-%     xlabel ('Time (s)','Fontsize', 7);
-end
-text(-1.8,ceil(yl(2))*1.18,'Delay','FontSize',6);
+set(gca,'XTick',[-2 0],'XtickLabel',[],'FontSize',6,'TickDir','out');

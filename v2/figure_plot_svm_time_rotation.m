@@ -27,12 +27,12 @@ caxis([c_lims]);
 % c.Limits=[50 100]
 % set(gca,'Fontsize',10);
 hold on;
-plot([ time(1) time(end)], [-3 -3 ], 'w--','LineWidth',0.5);
-plot([ time(1) time(end)], [-2.15 -2.15], 'w--','LineWidth',0.5);
-plot([ time(1) time(end)], [0 0 ], 'w--','LineWidth',0.5);
-plot([ -3 -3 ], [time(1) time(end)], 'w--','LineWidth',0.5);
-plot([ -2.15 -2.15 ], [time(1) time(end)], 'w--','LineWidth',0.5);
-plot([ 0 0 ], [time(1) time(end)], 'w--','LineWidth',0.5);
+plot([ time(1) time(end)], [-3 -3 ], 'w-','LineWidth',0.5);
+plot([ time(1) time(end)], [-2.15 -2.15], 'w-','LineWidth',0.5);
+plot([ time(1) time(end)], [0 0 ], 'w-','LineWidth',0.5);
+plot([ -3 -3 ], [time(1) time(end)], 'w-','LineWidth',0.5);
+plot([ -2.15 -2.15 ], [time(1) time(end)], 'w-','LineWidth',0.5);
+plot([ 0 0 ], [time(1) time(end)], 'w-','LineWidth',0.5);
 
 
 % axis equal;
@@ -52,7 +52,7 @@ if label_flag==1
     text(-1.8,1.35,'delay','fontsize',5,'Rotation',0,'HorizontalAlignment','left');
     text(-3.6,-1.8,'delay','fontsize',5,'Rotation',+90,'HorizontalAlignment','right');
     text(xl(2)+diff(xl)*1, yl(2)+diff(yl)*0.25,'ALM left','FontSize',7,'Color',[1 0 1] );
-    text(xl(1)-diff(xl)*0.45, yl(1)-diff(yl)*0.25, 'j', ...
+    text(xl(1)-diff(xl)*0.45, yl(1)-diff(yl)*0.25, 'l', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold');
     set(gca,'Fontsize',6,'YAxisLocation','left', 'fontname', 'helvetica','Xtick',[-2:2:0],'Ytick',[-2:2:0]);
 else

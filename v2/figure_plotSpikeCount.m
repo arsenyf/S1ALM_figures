@@ -10,13 +10,13 @@ smooth_time =  Param.parameter_value{(strcmp('smooth_time_cell_psth_for_clusteri
 smooth_bins=ceil(smooth_time/psth_time_bin);
 
 if strcmp(key.brain_area,'vS1')
-    PSTH_L = movmean(cell2mat(fetchn((rel.PSTH_l * EPHYS.UnitPosition * EXP.SessionTraining & ANL.IncludeUnit & ANL.IncludeSession & key) & 'outcome="hit"' & 'trial_type_name="l"', 'psth_avg', 'ORDER BY unit_uid')),[smooth_bins 0], 2, 'omitnan','Endpoints','shrink');
-    PSTH_R = movmean(cell2mat(fetchn((rel.PSTH_r * EPHYS.UnitPosition * EXP.SessionTraining & ANL.IncludeUnit & ANL.IncludeSession & key) & 'outcome="hit"' & 'trial_type_name="r"', 'psth_avg', 'ORDER BY unit_uid')),[smooth_bins 0], 2, 'omitnan','Endpoints','shrink');
-    yl=[0,30];
+    PSTH_L = movmean(cell2mat(fetchn((rel.PSTH_l * EPHYS.UnitPosition * EXP.SessionTraining & ANL.IncludeUnit & ANL.IncludeSession - ANL.ExcludeSession & key) & 'outcome="hit"' & 'trial_type_name="l"', 'psth_avg', 'ORDER BY unit_uid')),[smooth_bins 0], 2, 'omitnan','Endpoints','shrink');
+    PSTH_R = movmean(cell2mat(fetchn((rel.PSTH_r * EPHYS.UnitPosition * EXP.SessionTraining & ANL.IncludeUnit & ANL.IncludeSession - ANL.ExcludeSession & key) & 'outcome="hit"' & 'trial_type_name="r"', 'psth_avg', 'ORDER BY unit_uid')),[smooth_bins 0], 2, 'omitnan','Endpoints','shrink');
+    yl=[0,25];
 else
-    PSTH_L = movmean(cell2mat(fetchn((rel.PSTH_l * EPHYS.UnitPosition * EXP.SessionTraining & ANL.IncludeUnit & ANL.IncludeSession & key) & 'unit_quality!="multi"' & 'outcome="hit"' & 'trial_type_name="l"', 'psth_avg', 'ORDER BY unit_uid')),[smooth_bins 0], 2, 'omitnan','Endpoints','shrink');
-    PSTH_R = movmean(cell2mat(fetchn((rel.PSTH_r * EPHYS.UnitPosition * EXP.SessionTraining & ANL.IncludeUnit & ANL.IncludeSession & key) & 'unit_quality!="multi"' & 'outcome="hit"' & 'trial_type_name="r"', 'psth_avg', 'ORDER BY unit_uid')),[smooth_bins 0], 2, 'omitnan','Endpoints','shrink');
-    yl=[0,10];
+    PSTH_L = movmean(cell2mat(fetchn((rel.PSTH_l * EPHYS.UnitPosition * EXP.SessionTraining & ANL.IncludeUnit & ANL.IncludeSession - ANL.ExcludeSession & key) & 'unit_quality!="multi"' & 'outcome="hit"' & 'trial_type_name="l"', 'psth_avg', 'ORDER BY unit_uid')),[smooth_bins 0], 2, 'omitnan','Endpoints','shrink');
+    PSTH_R = movmean(cell2mat(fetchn((rel.PSTH_r * EPHYS.UnitPosition * EXP.SessionTraining & ANL.IncludeUnit & ANL.IncludeSession - ANL.ExcludeSession & key) & 'unit_quality!="multi"' & 'outcome="hit"' & 'trial_type_name="r"', 'psth_avg', 'ORDER BY unit_uid')),[smooth_bins 0], 2, 'omitnan','Endpoints','shrink');
+    yl=[0,8];
 end
 idx2plot= (time>=-4.5 & time<2);
 time = time(idx2plot);
@@ -41,9 +41,9 @@ ylim(yl);
 
 hold on;
 fill(t_sample_stim + [0 0 0.4 0.4], [0 100 100 0], [0.6 0.85 1], 'LineStyle', 'None');
-plot([t_go t_go], [yl(1) yl(2)], 'k--','LineWidth',0.5,'clipping','off');
-plot([t_chirp1 t_chirp1], [yl(1) yl(2)], 'k--','LineWidth',0.5);
-plot([t_chirp2 t_chirp2], [yl(1) yl(2)], 'k--','LineWidth',0.5);
+plot([t_go t_go], [0 200], 'k-','LineWidth',0.5);
+plot([t_chirp1 t_chirp1], [0 200], 'k-','LineWidth',0.5);
+plot([t_chirp2 t_chirp2], [0 200], 'k-','LineWidth',0.5);
 
 shadedErrorBar(time,R.m,R.stem,'lineprops',{'b-','markerfacecolor','b','linewidth',1});
 shadedErrorBar(time,L.m,L.stem,'lineprops',{'r-','markerfacecolor','r','linewidth',1},'transparent',1);
@@ -58,9 +58,7 @@ shadedErrorBar(time,S.m,S.stem,'lineprops',{'-','Color',[0.5 1 0],'markeredgecol
 
 %% Legends
 if labels_flag==1
-    text(xl(1)+diff(xl)*0.5, yl(1)-diff(yl)*0.5,'Time (s)', 'FontSize',7,'HorizontalAlignment','center');
-    text(xl(1)-diff(xl)*0.4, yl(1)+diff(yl)*0.5,'Spikes s^{-1}', 'FontSize',7,'HorizontalAlignment','center','Rotation',90);
-    set(gca,'YTick',yl,'XTick',[-4 -2 0 2],'FontSize',6);
+        set(gca,'YTick',yl,'XTick',[-4 -2 0 2],'FontSize',6);
 else
     set(gca,'YTick',yl,'XTick',[],'FontSize',6);
 end

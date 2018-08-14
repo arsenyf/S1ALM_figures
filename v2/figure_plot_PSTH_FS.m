@@ -1,4 +1,4 @@
-function figure_plot_PSTH(k,x,y,Param, rel, flag_xlable, flag_ylable, cell_num)
+function figure_plot_PSTH_FS(k,x,y,Param, rel, flag_xlable, flag_ylable, cell_num)
 
 panel_width=0.05;
 panel_height=0.03;
@@ -14,7 +14,7 @@ position_x(6)=position_x(5)+horizontal_distance;
 position_x(7)=position_x(6)+horizontal_distance;
 position_x(8)=position_x(7)+horizontal_distance;
 
-position_y(1)=0.63;
+position_y(1)=0.8;
 position_y(2)=position_y(1)-vertical_distance;
 position_y(3)=position_y(2)-vertical_distance;
 position_y(4)=position_y(3)-vertical_distance;
