@@ -1,6 +1,6 @@
 function Fig3() % MATLAB R2017a
 close all;
-
+tic 
 dir_root = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\'
 dir_embeded_graphics = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\Graphic_for_figures\'
 dir_save_figure = [dir_root 'Results\figures\v2\'];
@@ -390,6 +390,8 @@ text(xl(1)-diff(xl)*0.43, yl(1)+diff(yl)*1.3, 'g', ...
 text(2, 47, '***', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold','HorizontalAlignment','center');
 ylabel([sprintf('Lick right bias (%%)')],'FontSize',7);
+
+toc
 
 if isempty(dir(dir_save_figure))
    mkdir (dir_save_figure)

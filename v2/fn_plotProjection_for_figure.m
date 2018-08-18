@@ -49,7 +49,6 @@ plot([t_chirp1 t_chirp1], sz, 'k-','LineWidth',0.75);
 
 proj_min = 0;
 proj_max = 0;
-
 Proj=struct2table(fetch(rel & key_mode,'*','ORDER BY trialtype_plot_order DESC'));
 trial_types = unique(Proj.trial_type_name,'stable');
 
@@ -118,13 +117,13 @@ for itype= 1:1:numel(trial_types)
     else %single session
         Proj_avg=P.proj_average(idx_include,:);
     end
-    Proj_smooth = movmean(Proj_avg ,[smooth_bins 0], 2, 'Endpoints','shrink','omitnan');
+    Proj_smooth = movmean(Proj_avg ,[smooth_bins 0], 2,'omitnan', 'Endpoints','shrink');
     
     Proj_smooth_substract=0;
     if ~isempty(trial_type_substract)
         P_substract = Proj(strcmp(trial_type_substract,Proj.trial_type_name),:);
         Proj_avg_substract=nanmean(P_substract.proj_average,1);
-        Proj_smooth_substract = movmean(Proj_avg_substract ,[smooth_bins 0], 2, 'Endpoints','shrink','omitnan');
+        Proj_smooth_substract = movmean(Proj_avg_substract ,[smooth_bins 0], 2,'omitnan', 'Endpoints','shrink');
     end
     Proj_to_plot = Proj_smooth-Proj_smooth_substract;
     %         if ~isempty(Proj_to_plot)
@@ -154,7 +153,7 @@ key_mode.outcome='hit';
 key_mode.trial_type_name='r';
 Proj_right_hit=cell2mat(fetchn(rel & key_mode,'proj_average','ORDER BY trialtype_plot_order DESC'));
 Proj_right_hit=nanmean(Proj_right_hit(idx_include,:),1);
-Proj_right_hit = movmean(Proj_right_hit ,[smooth_bins 0], 2, 'Endpoints','shrink','omitnan');
+Proj_right_hit = movmean(Proj_right_hit ,[smooth_bins 0], 2,'omitnan', 'Endpoints','shrink');
 
 
 if flag_normalize_modes==1

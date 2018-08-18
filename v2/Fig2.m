@@ -1,6 +1,6 @@
 function Fig2() % MATLAB R2017a
 close all;
-
+ 
 dir_root = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\'
 dir_embeded_graphics = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\Graphic_for_figures\'
 dir_save_figure = [dir_root 'Results\figures\v2\'];
@@ -617,7 +617,6 @@ text ((xl(1)+diff(xl)*0.5), (yl(1) + diff(yl)*1.1), sprintf('Stimulus impact'),'
 % text(xl(1)-diff(xl)*0.1, yl(1)+diff(yl)*1.5,sprintf('Distractor-naive\nmini stimuli'),'FontSize',7,'Color',legends{1}.colr,'HorizontalAlignment','left'); 
 % text(xl(1)-diff(xl)*0.1, yl(1)+diff(yl)*1.2,sprintf('Distractor-trained\nfull stimuli'),'FontSize',7,'Color',legends{2}.colr,'HorizontalAlignment','left'); 
 % 
-
 if isempty(dir(dir_save_figure))
    mkdir (dir_save_figure)
 end

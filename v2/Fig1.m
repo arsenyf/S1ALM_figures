@@ -1,6 +1,6 @@
 function Fig1() % MATLAB R2017a
 close all;
-
+tic 
 dir_root = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\'
 dir_embeded_graphics = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\Graphic_for_figures\'
 dir_save_figure = [dir_root 'Results\figures\v2\'];
@@ -367,11 +367,15 @@ c_lims=[50 100];
 axes('position',[position_x2(4)+0.03, position_y2(4), panel_width2, panel_height2]);
 svm_performance_mat = (fetchn(rel & key,'svm_performance_mean_time_mat'));
 time_mat=[];
-for i=1:1:46%size(svm_performance_mat,1)
+for i=1:1:size(svm_performance_mat,1)
     time_mat(i,:,:)=svm_performance_mat{i};
 end
 time_mat = 100*squeeze(mean(time_mat,1));
 figure_plot_svm_time_rotation(t, time_mat, position_x2(4)+0.03, position_y2(4), panel_width2, panel_height2, label_flag, c_lims, last_label, key);
+xl=[-3.2 1.5];
+yl=[-3.2 1.5];
+text(xl(2)+diff(xl)*1, yl(2)+diff(yl)*0.25,'ALM left','FontSize',7,'Color',[1 0 1] );
+
 % freezeColors;
 
 
@@ -410,7 +414,7 @@ end
 time_mat = 100*squeeze(mean(time_mat,1));
 figure_plot_svm_time_rotation(t, time_mat, position_x2(6)+0.04, position_y2(4), panel_width2, panel_height2, label_flag, c_lims, last_label, key);
 % freezeColors;
-
+toc
 if isempty(dir(dir_save_figure))
     mkdir (dir_save_figure)
 end

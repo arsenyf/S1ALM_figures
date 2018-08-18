@@ -51,7 +51,6 @@ if label_flag==1
     text(xl(1)-diff(xl)*0.4, yl(1)+diff(yl)*0.5,'Test time (s)', 'FontSize',7,'HorizontalAlignment','center','Rotation',90);
     text(-1.8,1.35,'delay','fontsize',5,'Rotation',0,'HorizontalAlignment','left');
     text(-3.6,-1.8,'delay','fontsize',5,'Rotation',+90,'HorizontalAlignment','right');
-    text(xl(2)+diff(xl)*1, yl(2)+diff(yl)*0.25,'ALM left','FontSize',7,'Color',[1 0 1] );
     text(xl(1)-diff(xl)*0.45, yl(1)-diff(yl)*0.25, 'l', ...
     'fontsize', 12, 'fontname', 'helvetica', 'fontweight', 'bold');
     set(gca,'Fontsize',6,'YAxisLocation','left', 'fontname', 'helvetica','Xtick',[-2:2:0],'Ytick',[-2:2:0]);
