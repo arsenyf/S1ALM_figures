@@ -11,7 +11,7 @@ filename = 'Fig1_v2';
 %---------------------------------
 figure;
 set(gcf,'DefaultAxesFontName','helvetica');
-set(gcf,'PaperUnits','centimeters','PaperPosition',[0.5 7 23 25]);
+set(gcf,'PaperUnits','centimeters','PaperPosition',[0.5 2 23 25]);
 set(gcf,'PaperOrientation','portrait');
 set(gcf,'Units','centimeters','Position',get(gcf,'paperPosition')+[3 -10 0 0]);
 
