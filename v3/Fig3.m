@@ -3,8 +3,8 @@ close all;
 tic 
 dir_root = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\'
 dir_embeded_graphics = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\Graphic_for_figures\'
-dir_save_figure = [dir_root 'Results\figures\v2\'];
-filename = 'Fig3_v2';
+dir_save_figure = [dir_root 'Results\figures\v3\'];
+filename = 'Fig3';
 flag_plot_left_right_trials =1 % (0 both), (1 left), (2 right)
 
 legends{1}.colr = [0 0.4 0.5]; % Distractor naive mice
@@ -236,7 +236,7 @@ y_stem=nanstd(switch_prob1)./sqrt(size(switch_prob1,1));
 % shadedErrorBar(x,y_mean,y_stem,'lineprops',{'-','Color',colr,'markeredgecolor',colr,'markerfacecolor',colr,'linewidth',1});
 
 k.trial_type_name='l';
-rel_Switch = ( ANL.SwitchProbability * EXP.SessionID * EXP.SessionTraining *ANL.SessionGrouping ) & k;
+rel_Switch = ( ANL.SwitchProbability * EXP.SessionID * EXP.SessionTraining *ANL.SessionGrouping *  ANL.IncludeSession - ANL.ExcludeSession ) & k;
 switch_prob = cell2mat(fetchn(rel_Switch,'switch_prob' ,'ORDER BY session_uid'));
 normalized_proj_bins =  cell2mat(fetchn(rel_Switch,'normalized_proj_bins' ,'ORDER BY session_uid'));
 hold on;
@@ -302,7 +302,7 @@ y_stem=nanstd(switch_prob1)./sqrt(size(switch_prob1,1));
 % shadedErrorBar(x,y_mean,y_stem,'lineprops',{'-','Color',colr,'markeredgecolor',colr,'markerfacecolor',colr,'linewidth',1});
 
 k.trial_type_name='l';
-rel_Switch = ( ANL.SwitchProbability * EXP.SessionID * EXP.SessionTraining *ANL.SessionGrouping ) & k;
+rel_Switch = ( ANL.SwitchProbability * EXP.SessionID * EXP.SessionTraining *ANL.SessionGrouping *  ANL.IncludeSession - ANL.ExcludeSession ) & k;
 switch_prob = cell2mat(fetchn(rel_Switch,'switch_prob' ,'ORDER BY session_uid'));
 normalized_proj_bins =  cell2mat(fetchn(rel_Switch,'normalized_proj_bins' ,'ORDER BY session_uid'));
 hold on;

@@ -3,8 +3,8 @@ close all;
  
 dir_root = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\'
 dir_embeded_graphics = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\Graphic_for_figures\'
-dir_save_figure = [dir_root 'Results\figures\v2\'];
-filename = 'Fig2_v2';
+dir_save_figure = [dir_root 'Results\figures\v3\'];
+filename = 'Fig2';
 flag_plot_left_right_trials =1 % (0 both), (1 left), (2 right)
 
 legends{1}.colr = [0 0.4 0.5]; % Distractor naive mice

@@ -4,7 +4,7 @@ tic
 dir_root = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\'
 dir_embeded_graphics = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\Graphic_for_figures\'
 dir_save_figure = [dir_root 'Results\figures\v3\'];
-filename = 'Fig1_v3';
+filename = 'Fig1';
 
 
 %Graphics
@@ -324,7 +324,7 @@ key=[]; k=[];
 key.flag_include_distractor_trials=1;
 % key.training_type ='regular';
 
-rel=ANL.SVMdecoder * ANL.SessionPosition * EXP.SessionTraining ;
+rel=ANL.SVMdecoder * ANL.SessionPosition * EXP.SessionTraining * ANL.IncludeSession - ANL.ExcludeSession;
 % All trials
 key.sensory_or_motor=[];
 smooth_flag=0;
@@ -334,7 +334,7 @@ axes('position',[position_x2(1), position_y2(4), panel_width2, panel_height2]);
 svm_performance = fn_fetch_svm_performance(key,rel, smooth_flag);
 figure_plot_svm(svm_performance,t,legend_flag,key);
 
-rel=ANL.SVMdecoderSensoryMotor * ANL.SessionPosition * EXP.SessionTraining ;
+rel=ANL.SVMdecoderSensoryMotor * ANL.SessionPosition * EXP.SessionTraining * ANL.IncludeSession - ANL.ExcludeSession;
 % Sensory only
 key.sensory_or_motor='sensory';
 smooth_flag=1;
@@ -354,7 +354,7 @@ figure_plot_svm(svm_performance,t,legend_flag,key);
 %% SVM Decoder Time
 key=[]; k=[];
 key.flag_include_distractor_trials=1;
-rel=ANL.SVMdecoderTime * ANL.SessionPosition * EXP.SessionTraining ;
+rel=ANL.SVMdecoderTime * ANL.SessionPosition * EXP.SessionTraining * ANL.IncludeSession - ANL.ExcludeSession;
 t = fetch1(rel,'time_vector_svm', 'LIMIT 1');
 % key.training_type ='regular';
 
@@ -381,7 +381,7 @@ text(xl(2)+diff(xl)*1, yl(2)+diff(yl)*0.25,'ALM left','FontSize',7,'Color',[1 0 
 
 key=[]; k=[];
 key.flag_include_distractor_trials=1;
-rel=ANL.SVMdecoderSensoryMotorTime * ANL.SessionPosition * EXP.SessionTraining ;
+rel=ANL.SVMdecoderSensoryMotorTime * ANL.SessionPosition * EXP.SessionTraining * ANL.IncludeSession - ANL.ExcludeSession;
 t = fetch1(rel,'time_vector_svm', 'LIMIT 1');
 % key.training_type ='regular';
 

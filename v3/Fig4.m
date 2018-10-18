@@ -3,8 +3,8 @@ close all;
 
 dir_root = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\'
 dir_embeded_graphics = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\Graphic_for_figures\'
-dir_save_figure = [dir_root 'Results\figures\v2\'];
-filename = 'Fig4_v2';
+dir_save_figure = [dir_root 'Results\figures\v3\'];
+filename = 'Fig4';
 
 legends{2}.colr = [0 0 1]; % Distractor trained mice, right stimuli
 legends{2}.title_label='Distractor-trained';
